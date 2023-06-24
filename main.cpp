@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <libmathop_api.h>
+#include <mathop_api.h>
 
 int main(int argc, char* argv[]) {
     printf("Hello, World!\n");

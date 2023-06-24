@@ -30,4 +30,4 @@ set_target_properties(shared-mathop-lib PROPERTIES
 # .c won't work, must be .cpp somehow probably due to missing functions in C
 set(SRC main.cpp)
 add_executable(main ${SRC})
-target_link_libraries(main PRIVATE static-mathop-lib)
+target_link_libraries(main PRIVATE shared-mathop-lib)
