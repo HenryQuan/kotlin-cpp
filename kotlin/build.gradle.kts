@@ -27,6 +27,9 @@ kotlin {
             staticLib {
                 baseName = "mathop"
             }
+            sharedLib {
+                baseName = "mathop"
+            }
         }
     }
     sourceSets {
