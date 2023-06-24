@@ -1,13 +1,13 @@
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.decodeFromString
-import lib.math_op
+import lib.mathOp
 import model.DATA
 import model.SearchResult
 import service.APIService
 
 fun main() {
-    val result = math_op(5, 6)
+    val result = mathOp(5, 6)
     println("Hello, Kotlin/Native!, $result")
 
     runBlocking {

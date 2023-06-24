@@ -1,5 +1,6 @@
 package model
 
+import kotlinx.cinterop.internal.CStruct
 import kotlinx.serialization.Serializable
 
 object DATA {
@@ -117,11 +118,13 @@ object DATA {
 }
 
 @Serializable
+@CStruct("search_result")
 data class SearchResult (
     val locations: List<Location>,
     val totalResults: Long
 )
 
+@CStruct("location")
 @Serializable
 data class Location (
     val id: Long,
@@ -133,6 +136,7 @@ data class Location (
     val type: Long
 )
 
+@CStruct("state")
 @Serializable
 data class State (
     val name: String

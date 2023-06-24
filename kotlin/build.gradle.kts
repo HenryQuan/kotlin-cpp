@@ -26,11 +26,18 @@ kotlin {
             executable {
                 entryPoint = "main"
             }
-            staticLib {
-                baseName = "mathop"
-            }
+            // don't build for now
+//            staticLib {
+//                baseName = "mathop"
+//            }
             sharedLib {
                 baseName = "mathop"
+            }
+        }
+
+        compilations["main"].cinterops {
+            create("search_result") {
+                defFile = file("src/interop/search_result.def")
             }
         }
     }
