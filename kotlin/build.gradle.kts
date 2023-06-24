@@ -1,9 +1,11 @@
 plugins {
     kotlin("multiplatform") version "1.8.10"
+    kotlin("plugin.serialization") version "1.8.10"
 }
 
 group = "me.nateq"
 version = "1.0-SNAPSHOT"
+val ktor_version = "2.3.1"
 
 repositories {
     mavenCentral()
@@ -33,11 +35,14 @@ kotlin {
         }
     }
     sourceSets {
-        val nativeMain by getting
-        val nativeTest by getting
-
-        val demoLib by creating {
-            dependsOn(nativeMain)
+        val nativeMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-core:$ktor_version")
+                // different implementation will be used on different platform, use winhttp for Windows only
+                implementation("io.ktor:ktor-client-winhttp:$ktor_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+            }
         }
+        val nativeTest by getting
     }
 }
