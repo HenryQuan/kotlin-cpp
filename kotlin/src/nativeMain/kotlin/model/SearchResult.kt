@@ -119,13 +119,16 @@ object DATA {
 
 @Serializable
 @CStruct("search_result")
-data class SearchResult (
+data class SearchResult(
     val locations: List<Location>,
     val totalResults: Long
-)
+) {
+    val locations_string: String
+        get() = locations.toString()
+}
 
-@CStruct("location")
 @Serializable
+@CStruct("location")
 data class Location (
     val id: Long,
     val name: String,
@@ -136,8 +139,8 @@ data class Location (
     val type: Long
 )
 
-@CStruct("state")
 @Serializable
+@CStruct("state")
 data class State (
     val name: String
 )

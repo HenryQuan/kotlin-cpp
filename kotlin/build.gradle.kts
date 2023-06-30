@@ -34,12 +34,6 @@ kotlin {
                 baseName = "mathop"
             }
         }
-
-        compilations["main"].cinterops {
-            create("search_result") {
-                defFile = file("src/interop/search_result.def")
-            }
-        }
     }
     sourceSets {
         val nativeMain by getting {

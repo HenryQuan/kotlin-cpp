@@ -13,11 +13,9 @@ fun mathOp(a: Int, b: Int): Int {
 }
 
 @CName("get_blog_string")
-fun getBlogString(): String {
-    return runBlocking {
-        val service = APIService()
-        service.getData()
-    }
+suspend fun getBlogString(): String {
+    val service = APIService()
+    return service.getData()
 }
 
 @CName("decode_json_string")
