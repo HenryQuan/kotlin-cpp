@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
     auto service = lib->KN.service.APIService.APIService();
 
     get_data_callback(service, (void*)callback_block);
-    getchar();
+    getchar(); // wait for async call
     return 0;
 }
 
