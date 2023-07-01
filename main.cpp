@@ -1,7 +1,14 @@
 #include <stdio.h>
 #include <mathop_api.h>
 #include <fstream>
+
+#define KN kotlin.root
+#define KN_MODEL KN.model
+
 void callback_block(const char*);
+void location_block(mathop_kref_model_Location);
+
+const auto lib = mathop_symbols();
 
 int main(int argc, char* argv[]) {
     printf("Hello, World!\n");
@@ -18,14 +25,20 @@ int main(int argc, char* argv[]) {
     std::string content( (std::istreambuf_iterator<char>(ifs) ),
                        (std::istreambuf_iterator<char>()    ) );
     auto decoded = decode_json_string(content.c_str());
-    auto lib = mathop_symbols();
-    auto loc_string = lib->kotlin.root.model.SearchResult.get_locations_string(decoded);
-    printf("Result from Kotlin is %s\n---\n", loc_string);
-    auto service = lib->kotlin.root.service.APIService.APIService();
+    auto loc_string = lib->KN_MODEL.SearchResult.get_locations_string(decoded);
+    auto loc_list = lib->KN_MODEL.SearchResult.get_locations(decoded);
+    lib->KN_MODEL.SearchResult.traverse_locations(decoded, (void*)location_block);
 
-    lib->kotlin.root.service.APIService.getData(service, (void*)callback_block);
+    printf("Result from Kotlin is %s\n---\n", loc_string);
+    auto service = lib->KN.service.APIService.APIService();
+
+    get_data_callback(service, (void*)callback_block);
     getchar();
     return 0;
+}
+
+void location_block(mathop_kref_model_Location loc) {
+    printf("location is %s\n", lib->KN_MODEL.Location.get_name(loc));
 }
 
 void callback_block(const char* result) {

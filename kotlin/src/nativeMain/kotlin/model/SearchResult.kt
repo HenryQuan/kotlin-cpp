@@ -1,5 +1,6 @@
 package model
 
+import kotlinx.cinterop.*
 import kotlinx.cinterop.internal.CStruct
 import kotlinx.serialization.Serializable
 
@@ -117,6 +118,8 @@ object DATA {
     """.trimIndent()
 }
 
+typealias LocationCallback = CPointer<CFunction<(COpaquePointer) -> Unit>>
+
 @Serializable
 @CStruct("search_result")
 data class SearchResult(
@@ -125,6 +128,15 @@ data class SearchResult(
 ) {
     val locations_string: String
         get() = locations.toString()
+
+    fun traverse_locations(locationCallback: LocationCallback) {
+        for (loc in locations) {
+            val stableRef = StableRef.create(loc)
+            val locPointer = stableRef.asCPointer()
+            locationCallback(locPointer)
+            stableRef.dispose()
+        }
+    }
 }
 
 @Serializable
